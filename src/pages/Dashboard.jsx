@@ -1,4 +1,5 @@
 import Header from '../components/layout/Header';
+import StockCard from '../components/widgets/StockCard';
 import { useWatchlist } from '../store/watchlistStore';
 
 export default function Dashboard() {
@@ -9,11 +10,11 @@ export default function Dashboard() {
       <Header />
       <main>
         <h2>Watchlist</h2>
-        <ul>
+        <div className="stock-grid">
           {watchlist.map((symbol) => (
-            <li key={symbol}>{symbol}</li>
+            <StockCard key={symbol} symbol={symbol} />
           ))}
-        </ul>
+        </div>
       </main>
     </div>
   );

@@ -1,3 +1,4 @@
+import './App.css';
 import { WatchlistProvider } from './store/watchlistStore';
 import Dashboard from './pages/Dashboard';
 
