@@ -10,7 +10,7 @@ export default function App() {
   return (
     <WatchlistProvider>
       <nav className="app-nav">
-        <span className="app-nav-brand">StockDash</span>
+        <span className="app-nav-brand">Market</span>
         <div className="app-nav-tabs">
           <button
             className={`nav-tab${page === 'dashboard' ? ' active' : ''}`}

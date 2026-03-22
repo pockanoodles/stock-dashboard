@@ -1,16 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 *, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --bg:        #0f1117;
-  --surface:   #1a1d27;
-  --border:    #2a2d3a;
-  --text:      #9ca3af;
-  --text-h:    #f3f4f6;
-  --green:     #22c55e;
-  --green-bg:  rgba(34, 197, 94, 0.08);
-  --red:       #ef4444;
-  --red-bg:    rgba(239, 68, 68, 0.08);
-  --sans:      system-ui, 'Segoe UI', Roboto, sans-serif;
+  --bg:            #F4F3EE;
+  --surface:       #FFFFFF;
+  --border:        #E8E6E0;
+  --border-subtle: #F0EEE9;
+  --text:          #1a1918;
+  --text-m:        #9B9790;
+  --text-d:        #C4C1BA;
+  --accent:        #C15F3C;
+  --accent-hover:  #A84E2E;
+  --accent-bg:     rgba(193, 95, 60, 0.07);
+  --green:         #2E7D52;
+  --green-bg:      rgba(46, 125, 82, 0.08);
+  --red:           #D94F3D;
+  --red-bg:        rgba(217, 79, 61, 0.08);
+  --shadow-sm:     0 1px 2px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-md:     0 2px 8px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+  --sans:          'Inter', system-ui, -apple-system, sans-serif;
 }
 
 body {
@@ -19,6 +28,7 @@ body {
   color: var(--text);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {

@@ -1,3 +1,5 @@
+import ReactMarkdown from 'react-markdown';
+
 export default function MarketSummary({ summary, loading, error }) {
   if (!loading && !summary && !error) return null;
 
@@ -14,10 +16,10 @@ export default function MarketSummary({ summary, loading, error }) {
       )}
       {error && <p className="summary-error">{error}</p>}
       {summary && (
-        <p className="summary-text">
-          {summary}
+        <div className="summary-text">
+          <ReactMarkdown>{summary}</ReactMarkdown>
           {loading && <span className="summary-cursor" />}
-        </p>
+        </div>
       )}
     </div>
   );
