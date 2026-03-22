@@ -14,7 +14,7 @@ function CustomTooltip({ active, payload, label }) {
   );
 }
 
-export default function PriceChart({ data, isPositive }) {
+export default function PriceChart({ data, isPositive, symbol }) {
   if (!data?.length) return <div className="chart-empty">No data</div>;
 
   const prices = data.map((d) => d.close);
@@ -34,7 +34,7 @@ export default function PriceChart({ data, isPositive }) {
     <ResponsiveContainer width="100%" height={160}>
       <AreaChart data={data} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
         <defs>
-          <linearGradient id={`grad-${isPositive}`} x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id={`grad-${symbol}`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={color} stopOpacity={0.2} />
             <stop offset="100%" stopColor={color} stopOpacity={0} />
           </linearGradient>

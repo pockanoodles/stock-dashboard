@@ -7,7 +7,7 @@ import PriceChart from '../charts/PriceChart';
 export default function StockCard({ symbol }) {
   const [range, setRange] = useState('6M');
   const { data: quote, loading: quoteLoading, error: quoteError } = useStockQuote(symbol);
-  const { data: candles, loading: candlesLoading } = useStockCandles(symbol, range);
+  const { data: candles, loading: candlesLoading, error: candlesError } = useStockCandles(symbol, range);
 
   if (quoteLoading) return <div className="stock-card loading">{symbol} …</div>;
   if (quoteError)   return <div className="stock-card error">{symbol} failed to load</div>;
@@ -49,7 +49,9 @@ export default function StockCard({ symbol }) {
       <div className="chart-wrapper">
         {candlesLoading
           ? <div className="chart-empty">Loading…</div>
-          : <PriceChart data={candles} isPositive={isPositive} />
+          : candlesError
+            ? <div className="chart-empty chart-error">Chart unavailable</div>
+            : <PriceChart data={candles} isPositive={isPositive} symbol={symbol} />
         }
       </div>
 

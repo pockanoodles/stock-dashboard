@@ -206,3 +206,107 @@
 
 .positive-text { color: var(--green); }
 .negative-text { color: var(--red); }
+
+/* ── Watchlist header ───────────────────────────────── */
+.watchlist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.watchlist-header h2 {
+  margin: 0;
+}
+
+/* ── Analyze button ─────────────────────────────────── */
+.analyze-btn {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.analyze-btn:hover:not(:disabled) {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.analyze-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── Market summary ─────────────────────────────────── */
+.market-summary {
+  margin-top: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 28px;
+}
+
+.summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.summary-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.summary-model {
+  font-size: 11px;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-weight: 500;
+}
+
+.summary-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-h);
+  white-space: pre-wrap;
+}
+
+.summary-error {
+  margin: 0;
+  font-size: 13px;
+  color: var(--red);
+}
+
+.summary-skeleton {
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Blinking cursor shown while streaming */
+.summary-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #6366f1;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
