@@ -72,11 +72,11 @@ export default function News() {
         />
         <NewsSection
           label="JPY / USD"
-          query="JPY USD yen dollar exchange rate currency Bank of Japan"
+          query="yen dollar Japan currency Fed 2026"
         />
         <NewsSection
-          label="Japan Politics"
-          query="Japan politics government LDP prime minister Kishida policy"
+          label="Bank of Japan & Economy"
+          query="Bank of Japan interest rate Nikkei Tokyo GDP"
         />
       </div>
 
