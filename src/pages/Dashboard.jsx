@@ -3,6 +3,7 @@ import Header from '../components/layout/Header';
 import StockCard from '../components/widgets/StockCard';
 import MarketSummary from '../components/MarketSummary';
 import { useWatchlist } from '../store/watchlistStore';
+import { SECTIONS } from '../store/watchlistStore';
 import { fetchQuote } from '../api/stockApi';
 import { analyzeMarket } from '../api/analyzeMarket';
 
@@ -51,19 +52,22 @@ export default function Dashboard() {
       <main>
         <div className="watchlist-header">
           <h2>Watchlist</h2>
-          <button
-            className="analyze-btn"
-            onClick={handleAnalyze}
-            disabled={analyzing}
-          >
+          <button className="analyze-btn" onClick={handleAnalyze} disabled={analyzing}>
             {analyzing ? 'Analyzing…' : 'AI Analysis'}
           </button>
         </div>
-        <div className="stock-grid">
-          {watchlist.map((symbol) => (
-            <StockCard key={symbol} symbol={symbol} />
-          ))}
-        </div>
+
+        {SECTIONS.map((section) => (
+          <div key={section.label} className="watchlist-section">
+            <h3 className="section-label">{section.label}</h3>
+            <div className="stock-grid">
+              {section.symbols.map((symbol) => (
+                <StockCard key={symbol} symbol={symbol} />
+              ))}
+            </div>
+          </div>
+        ))}
+
         <MarketSummary summary={summary} loading={analyzing} error={error} />
       </main>
     </div>

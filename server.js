@@ -58,6 +58,29 @@ app.post('/api/analyze', async (req, res) => {
   }
 });
 
+app.get('/api/news', async (req, res) => {
+  const key = process.env.VITE_NEWS_API_KEY;
+  if (!key) return res.status(500).json({ error: 'VITE_NEWS_API_KEY not configured' });
+
+  const q = req.query.q || 'Japan US stock market economy finance';
+
+  try {
+    const r = await fetch(
+      `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&pageSize=6&sortBy=publishedAt&apiKey=${key}`
+    );
+    const json = await r.json();
+    const articles = (json.articles || []).map((a) => ({
+      title: a.title,
+      source: a.source?.name,
+      url: a.url,
+      publishedAt: a.publishedAt,
+    }));
+    res.json(articles);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 const YAHOO_RANGE_MAP = { '1M': '1mo', '3M': '3mo', '6M': '6mo', '1Y': '1y' };
 
 app.get('/api/candles/:symbol', async (req, res) => {

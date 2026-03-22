@@ -22,7 +22,7 @@ export default function App() {
             className={`nav-tab${page === 'worldlens' ? ' active' : ''}`}
             onClick={() => setPage('worldlens')}
           >
-            WorldLens
+            News
           </button>
         </div>
       </nav>

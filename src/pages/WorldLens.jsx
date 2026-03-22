@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import NewsSection from '../components/NewsSection';
 
-export default function WorldLens() {
+export default function News() {
   const [briefing, setBriefing] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,7 +16,6 @@ export default function WorldLens() {
 
     try {
       const res = await fetch('/api/world-lens', { method: 'POST' });
-
       if (!res.ok) {
         let msg = `Server error ${res.status}`;
         try { const d = await res.json(); msg = d.error || msg; } catch {}
@@ -55,64 +55,65 @@ export default function WorldLens() {
   }
 
   return (
-    <div className="world-lens">
-      <header>
-        <div className="world-lens-title-row">
-          <h1>WorldLens</h1>
-          <span className="world-lens-badge">Geopolitical Intelligence</span>
+    <div className="news-page">
+      <header className="news-page-header">
+        <div>
+          <h1>News</h1>
+          <p className="news-page-subtitle">
+            Live headlines across markets, currency, and Japan politics.
+          </p>
         </div>
-        <p className="world-lens-subtitle">
-          AI-powered briefing on US-Japan relations, Japanese markets, and global geopolitical events.
-        </p>
       </header>
 
-      <div className="world-lens-action">
-        <button className="analyze-btn" onClick={fetchBriefing} disabled={loading}>
-          {loading ? 'Fetching briefing…' : 'Get Briefing'}
-        </button>
+      <div className="news-grid">
+        <NewsSection
+          label="Market Headlines"
+          query="Japan US stock market economy Nikkei finance"
+        />
+        <NewsSection
+          label="JPY / USD"
+          query="JPY USD yen dollar exchange rate currency Bank of Japan"
+        />
+        <NewsSection
+          label="Japan Politics"
+          query="Japan politics government LDP prime minister Kishida policy"
+        />
       </div>
 
-      {(briefing || loading || error) && (
-        <div className="market-summary world-lens-briefing">
-          <div className="summary-header">
-            <span className="summary-label">AI Briefing</span>
-            <span className="summary-model">claude-sonnet-4</span>
+      <div className="news-briefing-section">
+        <div className="news-briefing-header">
+          <div>
+            <span className="section-label" style={{ margin: 0 }}>AI Briefing</span>
+            <p className="news-briefing-desc">
+              Claude synthesizes the headlines above into a structured intelligence summary.
+            </p>
           </div>
-
-          {error && <p className="summary-error">{error}</p>}
-
-          {!error && briefing && (
-            <div className="summary-text">
-              <ReactMarkdown>{briefing}</ReactMarkdown>
-              {!done && <span className="summary-cursor" />}
-            </div>
-          )}
-
-          {!error && !briefing && loading && (
-            <div className="summary-skeleton">
-              <span className="summary-cursor" />
-            </div>
-          )}
+          <button className="analyze-btn" onClick={fetchBriefing} disabled={loading}>
+            {loading ? 'Generating…' : 'Get Briefing'}
+          </button>
         </div>
-      )}
 
-      {!briefing && !loading && !error && (
-        <div className="world-lens-topics">
-          {[
-            { icon: '🇺🇸🇯🇵', label: 'US-Japan Relations', desc: 'Trade, diplomacy, security alliances' },
-            { icon: '📈', label: 'Japan Markets', desc: 'Nikkei, yen, economic indicators' },
-            { icon: '🌐', label: 'Global Geopolitics', desc: 'Conflicts, sanctions, world economy' },
-          ].map(({ icon, label, desc }) => (
-            <div key={label} className="world-lens-topic-card">
-              <span className="topic-icon">{icon}</span>
-              <div>
-                <div className="topic-label">{label}</div>
-                <div className="topic-desc">{desc}</div>
+        {(briefing || loading || error) && (
+          <div className="news-briefing-result">
+            <div className="summary-header">
+              <span className="summary-label">Summary</span>
+              <span className="summary-model">claude-sonnet-4</span>
+            </div>
+            {error && <p className="summary-error">{error}</p>}
+            {!error && briefing && (
+              <div className="summary-text">
+                <ReactMarkdown>{briefing}</ReactMarkdown>
+                {!done && <span className="summary-cursor" />}
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            )}
+            {!error && !briefing && loading && (
+              <div className="summary-skeleton">
+                <span className="summary-cursor" />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
