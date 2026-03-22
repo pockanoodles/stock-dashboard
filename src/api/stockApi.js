@@ -10,11 +10,8 @@ export async function fetchQuote(symbol) {
   return res.json();
 }
 
-export async function fetchCandles(symbol, resolution = 'D', from, to) {
-  const url = `${BASE_URL}/stock/candle?symbol=${symbol}&resolution=${resolution}&from=${from}&to=${to}&token=${API_KEY}`;
-  const res = await fetch(url);
+export async function fetchCandles(symbol, range = '6M') {
+  const res = await fetch(`/api/candles/${symbol}?range=${range}`);
   if (!res.ok) throw new Error(`Candles HTTP ${res.status} for ${symbol}`);
-  const data = await res.json();
-  console.log(`[Finnhub candles] ${symbol} ${resolution}:`, data);
-  return data;
+  return res.json();
 }

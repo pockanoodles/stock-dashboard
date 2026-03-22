@@ -8,16 +8,17 @@ export default function StockCard({ symbol }) {
   const [range, setRange] = useState('6M');
   const { data: quote, loading: quoteLoading, error: quoteError } = useStockQuote(symbol);
   const { data: candles, loading: candlesLoading, error: candlesError } = useStockCandles(symbol, range);
+  const { data: yearCandles } = useStockCandles(symbol, '1Y');
 
   if (quoteLoading) return <div className="stock-card loading">{symbol} …</div>;
   if (quoteError)   return <div className="stock-card error">{symbol} failed to load</div>;
 
   const isPositive = quote.d >= 0;
 
-  // 52-week high/low from candle data (use 1Y candles if available, else current range)
-  const prices = candles?.map((d) => d.close) ?? [];
-  const weekHigh52 = prices.length ? Math.max(...prices) : null;
-  const weekLow52  = prices.length ? Math.min(...prices) : null;
+  // 52-week high/low always derived from 1Y candles
+  const yearPrices = yearCandles?.map((d) => d.close) ?? [];
+  const weekHigh52 = yearPrices.length ? Math.max(...yearPrices) : null;
+  const weekLow52  = yearPrices.length ? Math.min(...yearPrices) : null;
 
   return (
     <div className={`stock-card ${isPositive ? 'positive' : 'negative'}`}>
